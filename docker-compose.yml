@@ -1,0 +1,19 @@
+services:
+  api:
+    container_name: api
+    build: ./server/
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server/source:/app
+  app:
+    container_name: app
+    build: ./client/
+    ports:
+      - "10000:3000"
+    volumes:
+      - ./client/source:/usr/src/app
+    environment:
+      - NODE_ENV=development
+    command: sh -c "npm install && npm start"
+    stdin_open: true
